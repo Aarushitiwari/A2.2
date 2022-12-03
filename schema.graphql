@@ -1,0 +1,49 @@
+#schema
+type Query {
+  getAllDoctors: [Doctor!]!
+  getDoctorByID(doctorID: ID!): Doctor!
+  getAvailableSlotsByDoctorID(doctorID: ID!): Doctor!
+}
+
+type Doctor {
+  doctorID: ID!
+  doctorName: String!
+  clinicName: String!
+  specialty: String!
+  slots: Int!
+}
+
+type Patient {
+  patientID: ID!
+  patientName: String!
+}
+
+type Appointment {
+  appointmentID: ID!
+  patientID: ID!
+  patientName: String!
+  doctorID: ID!
+  doctorName: String!
+}
+
+# inputs for mutations
+input BookAppointmentInput {
+  patientID: ID!
+  patientName: String!
+  doctorID: ID!
+  doctorName: String!
+}
+
+input UpdatePatientNameInput {
+  appointmentID: ID!
+  newPatientName: String!
+}
+
+
+# mutations
+type Mutation {
+  bookAppointment(input: BookAppointmentInput!): Appointment
+  updatePatientName(input: UpdatePatientNameInput!): Appointment
+  cancelAppointment(appointmentID: ID!): Appointment
+}
+
